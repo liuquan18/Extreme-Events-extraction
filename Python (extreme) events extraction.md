@@ -10,7 +10,8 @@ As more and more common the high frequency (like daily) data becomes avaiable, s
 
 > **Fig1.How to get threshold for an event.** Here shows the procedure to get the threshold for each *day of year* with grand-ensemble (simulation data) data. For each day, the threshold is got from a data with size of $year \times ens$ (black bold line outlined data). For the observational data, because there is only one realisation, for each day, one can get the threshold from  data of 7 days (window) ahead and after that day, and all the years, i.e., get the quantile or standard deviation from a data with size of $year\times window$. This can be easily implemented by *DataArray.rolling* function in python.
 
-<img src="/Users/liuquan/Desktop/Screenshot 2022-02-23 at 16.42.49.png" alt="Screenshot 2022-02-23 at 16.42.49" style="zoom:50%;" />
+<img width="436" alt="FIG2" src="https://user-images.githubusercontent.com/57739182/157716902-b385d226-de54-4c8f-91a2-39dc9640247c.png">
+
 
 > **Fig2. Definition of events.** Thresholds are calculated for each day of year. Here shows DJF only. 
 
@@ -25,7 +26,8 @@ PCs = xr.open_dataset('/work/mh0033/m300883/task1/Hist_obs/obs/EOF_result/daily_
 PCs = PCs.daily_index
 ```
 
-<img src="/Users/liuquan/Library/Application Support/typora-user-images/image-20220224151659317.png" alt="image-20220224151659317" style="zoom:50%;" />
+<img width="713" alt="fig3" src="https://user-images.githubusercontent.com/57739182/157717270-ee74081d-4f0f-45ea-a1bf-02ea23fa8b6e.png">
+
 
 The data contains two time series, which represent two teleconnection modes: NAO and EA.
 
@@ -33,9 +35,10 @@ The data contains two time series, which represent two teleconnection modes: NAO
 PCs.sel(mode = 'NAO').plot()
 ```
 
-![PC_timeseries](/Users/liuquan/Library/Mobile Documents/com~apple~CloudDocs/公众号/PC_timeseries.png)
+![fig4](https://user-images.githubusercontent.com/57739182/157717512-8ef22bdd-15f8-4355-b7c5-5c4c6e788be4.png)
 
-![download](/Users/liuquan/Library/Mobile Documents/com~apple~CloudDocs/公众号/download.png)
+![fig5here](https://user-images.githubusercontent.com/57739182/157717550-169a062f-0ccd-4706-b714-9ad0513ce675.png)
+
 
 The example time series are complicated in two aspects: data series are DJF only, which means data are not temporally continuous, and data in Dec of **last** year, and Jan and Feb in **this** year should be seen together as a independent time period, so we can not use  ``` groupby(year)``` directly; There are two series in the data, which can be easily popularized to spatio-temporal data with hundreds of time series.
 
@@ -231,6 +234,8 @@ Below is a simple example to count the events by its `duration`.
 ```python
 def count_by_duration(events):
     return events.groupby('duration').size()
+```
+```python
 def get_count(events):
     
     counts = list()
